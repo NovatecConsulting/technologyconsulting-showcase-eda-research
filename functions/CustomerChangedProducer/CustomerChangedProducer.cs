@@ -11,9 +11,9 @@ using TCShowcaseEDAResearch.Model;
 
 namespace TCShowcaseEDAResearch
 {
-  public static class CustomerChanged
+  public static class CustomerChangedProducer
   {
-    [FunctionName("CustomerChanged")]
+    [FunctionName("CustomerChangedProducer")]
     [return: EventHub("EVENT_HUB_NAME", Connection = "CONNECTION_STRING")]
     public static async Task<IActionResult> Run(
         [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = null)] HttpRequest req,
@@ -22,7 +22,7 @@ namespace TCShowcaseEDAResearch
       var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
       var data = JsonConvert.DeserializeObject<Customer>(requestBody);
 
-      log.LogInformation("CustomerChanged Function triggered");
+      log.LogInformation("CustomerChangedProducer function triggered");
 
       return new OkObjectResult(data);
     }
