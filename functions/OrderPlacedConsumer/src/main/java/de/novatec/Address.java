@@ -4,9 +4,18 @@ public class Address {
   private String city;
   private String street;
   private String zip;
+  private String country;
 
   public String getCity() {
     return city;
+  }
+
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
   }
 
   public String getZip() {
@@ -31,6 +40,6 @@ public class Address {
 
   @Override
   public String toString() {
-    return String.format("Address(city=%s, street=%s, zip=%s)", city, street, zip);
+    return String.format("Address(city=%s, street=%s, zip=%s, country=%s)", city, street, zip, country);
   }
 }
