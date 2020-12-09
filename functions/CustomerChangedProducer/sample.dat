@@ -1,0 +1,9 @@
+ {
+    "id": 4,
+    "name": "Corry Kuit",
+    "address": {
+        "zip": "43408",
+        "street": "Grensoord 8118",
+        "city": "Sint Geertruid"
+    }
+}
