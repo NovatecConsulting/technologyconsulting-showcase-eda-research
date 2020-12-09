@@ -1,35 +1,29 @@
 package de.novatec;
 
-import java.time.LocalDateTime;
-
 public class Order {
   private int orderId;
   private int customerId;
-  private LocalDateTime timestamp;
-  private String name;
-
-  public Order() {
-    timestamp = LocalDateTime.now();
-  }
+  private String product;
+  private int amount;
 
   public int getOrderId() {
     return orderId;
   }
 
-  public String getName() {
-    return name;
+  public int getAmount() {
+    return amount;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setAmount(int amount) {
+    this.amount = amount;
   }
 
-  public LocalDateTime getTimestamp() {
-    return timestamp;
+  public String getProduct() {
+    return product;
   }
 
-  public void setTimestamp(LocalDateTime timestamp) {
-    this.timestamp = timestamp;
+  public void setProduct(String product) {
+    this.product = product;
   }
 
   public int getCustomerId() {
@@ -46,6 +40,6 @@ public class Order {
 
   @Override
   public String toString() {
-    return String.format("Order(orderId=%d, customerId=%d, timestamp='%s', name='%s')", orderId, customerId, timestamp.toString(), name);
+    return String.format("Order(orderId=%d, customerId=%d, product='%s', amount=%d)", orderId, customerId, product, amount);
   }
 }
