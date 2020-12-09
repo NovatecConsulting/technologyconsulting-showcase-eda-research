@@ -55,7 +55,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_event_producer_action_5" {
                      "name":"@{items('For_each')?['name']?['first']} @{items('For_each')?['name']?['last']}"
                   },
                   "method":"PUT",
-                  "uri":"https://${azurerm_function_app.customer_function_producer.default_hostname}/api/CustomerChanged"
+                  "uri":"https://${azurerm_function_app.customer_function_producer.default_hostname}/api/CustomerChangedProducer"
                },
                "runAfter":{
                   
