@@ -25,9 +25,9 @@ public class Function {
         log.info("OrderPlacedConsumer received event from event hub " + order.toString());
         
         log.info("Fetching customer with id " + order.getCustomerId() + " from container");
-        
+
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Customer> customerResponse = restTemplate.getForEntity("http://tc-eda-iac-prod-customer-consumer-container.westeurope.azurecontainer.io/customers/" + order.getCustomerId(), Customer.class);
+        ResponseEntity<Customer> customerResponse = restTemplate.getForEntity("http://tc-eda-iac-" + System.getenv("ENVIRONMENT_NAME") + "-customer-consumer-container.westeurope.azurecontainer.io/customers/" + order.getCustomerId(), Customer.class);
 
         if(customerResponse.getStatusCode() != HttpStatus.OK) {
             log.warning("Couldn't fetch customer with id " + order.getCustomerId() + "; ErrorCode=" + customerResponse.getStatusCode().value());
