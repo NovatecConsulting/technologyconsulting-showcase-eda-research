@@ -48,6 +48,7 @@ resource "azurerm_logic_app_action_custom" "logic_app_event_producer_action_5" {
                   "body":{
                      "address":{
                         "city":"@{items('For_each')?['location']?['city']}",
+                        "country": "@{items('For_each')?['location']?['country']}",
                         "street":"@{items('For_each')?['location']?['street']?['name']} @{items('For_each')?['location']?['street']?['number']}",
                         "zip":"@{items('For_each')?['location']?['postcode']}"
                      },
