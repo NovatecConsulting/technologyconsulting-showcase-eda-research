@@ -27,11 +27,6 @@ resource "azurerm_function_app" "order_function_producer" {
         CONNECTION_STRING = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.eventhub_order_placed_sas_connectionstring.id})"
         FUNCTIONS_WORKER_RUNTIME = "java"
     }
-    site_config {
-      java_version = "11"
-      java_container = "JAVA"
-      java_container_version = "11"
-    }
 }
 
 resource "azurerm_function_app" "order_function_consumer" {
@@ -50,8 +45,5 @@ resource "azurerm_function_app" "order_function_consumer" {
         EVENT_HUB_NAME = azurerm_eventhub.eventhub_order_placed.name
         CONNECTION_STRING = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.eventhub_order_placed_sas_connectionstring.id})"
         FUNCTIONS_WORKER_RUNTIME = "java"
-    }
-    site_config {
-      java_version = "11"
     }
 }
