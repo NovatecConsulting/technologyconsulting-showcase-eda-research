@@ -24,7 +24,7 @@ resource "azurerm_key_vault" "key_vault" {
 
 
 # Customer Producer FaaS 
-resource "azurerm_key_vault_access_policy" "key_vault_producer_function_access_policy" {
+resource "azurerm_key_vault_access_policy" "key_vault_customer_producer_function_access_policy" {
   key_vault_id = azurerm_key_vault.key_vault.id
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = azurerm_function_app.customer_function_producer.identity[0].principal_id
@@ -33,7 +33,7 @@ resource "azurerm_key_vault_access_policy" "key_vault_producer_function_access_p
 }
 
 # Customer Consumer FaaS 
-resource "azurerm_key_vault_access_policy" "key_vault_consumer_function_access_policy" {
+resource "azurerm_key_vault_access_policy" "key_vault_customer_consumer_function_access_policy" {
   key_vault_id = azurerm_key_vault.key_vault.id
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = azurerm_function_app.customer_function_consumer.identity[0].principal_id
@@ -42,7 +42,7 @@ resource "azurerm_key_vault_access_policy" "key_vault_consumer_function_access_p
 }
 
 # Order Producer FaaS 
-resource "azurerm_key_vault_access_policy" "key_vault_producer_function_access_policy" {
+resource "azurerm_key_vault_access_policy" "key_vault_order_producer_function_access_policy" {
   key_vault_id = azurerm_key_vault.key_vault.id
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = azurerm_function_app.order_function_producer.identity[0].principal_id
@@ -51,7 +51,7 @@ resource "azurerm_key_vault_access_policy" "key_vault_producer_function_access_p
 }
 
 # Order Consumer FaaS 
-resource "azurerm_key_vault_access_policy" "key_vault_consumer_function_access_policy" {
+resource "azurerm_key_vault_access_policy" "key_vault_order_consumer_function_access_policy" {
   key_vault_id = azurerm_key_vault.key_vault.id
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = azurerm_function_app.order_function_consumer.identity[0].principal_id
