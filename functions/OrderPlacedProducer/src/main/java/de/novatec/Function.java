@@ -26,7 +26,7 @@ public class Function {
      * 
      * @throws JsonProcessingException
      */
-    @FunctionName("orderPlaced")
+    @FunctionName("OrderPlacedProducer")
     public HttpResponseMessage run(
             @HttpTrigger(name = "req", methods = {
                     HttpMethod.POST }, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Order> request,
