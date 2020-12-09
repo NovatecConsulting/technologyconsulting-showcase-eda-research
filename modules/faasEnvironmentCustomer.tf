@@ -1,14 +1,14 @@
-resource "azurerm_app_service_plan" "function_app_service_plan" {
-    name = "tc-eda-iac-${var.environment}-function-app-service-plan"
-    location = azurerm_resource_group.resourceGroup.location
-    resource_group_name = azurerm_resource_group.resourceGroup.name
-    kind = "Windows"
+# resource "azurerm_app_service_plan" "function_app_service_plan" {
+#     name = "tc-eda-iac-${var.environment}-function-app-service-plan"
+#     location = azurerm_resource_group.resourceGroup.location
+#     resource_group_name = azurerm_resource_group.resourceGroup.name
+#     kind = "Windows"
 
-    sku {
-        tier = "Free"
-        size = "F1"
-    }
-}
+#     sku {
+#         tier = "Free"
+#         size = "F1"
+#     }
+# }
 
 resource "azurerm_function_app" "customer_function_producer" {
     name = "tc-eda-iac-${var.environment}-function-customer-producer"
