@@ -19,6 +19,7 @@ resource "azurerm_function_app" "order_function_producer" {
     storage_account_name = azurerm_storage_account.storage_account.name
     storage_account_access_key = azurerm_storage_account.storage_account.primary_access_key
     version = "~3"
+    os_type = "linux"
 
     identity {
         type = "SystemAssigned"
@@ -26,6 +27,7 @@ resource "azurerm_function_app" "order_function_producer" {
 
     site_config {
       linux_fx_version = "JAVA|11"
+      use_32_bit_worker_process = true
     }
 
     app_settings = {
@@ -43,6 +45,7 @@ resource "azurerm_function_app" "order_function_consumer" {
     storage_account_name = azurerm_storage_account.storage_account.name
     storage_account_access_key = azurerm_storage_account.storage_account.primary_access_key
     version = "~3"
+    os_type = "linux"
 
     identity {
         type = "SystemAssigned"
@@ -50,6 +53,7 @@ resource "azurerm_function_app" "order_function_consumer" {
 
     site_config {
       linux_fx_version = "JAVA|11"
+      use_32_bit_worker_process = true
     }
 
     app_settings = {
