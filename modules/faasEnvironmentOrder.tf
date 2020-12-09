@@ -22,6 +22,7 @@ resource "azurerm_function_app" "order_function_producer" {
 
     site_config {
       use_32_bit_worker_process = true
+      linux_fx_version = "JAVA|11"
     }
     identity {
         type = "SystemAssigned"
@@ -44,6 +45,7 @@ resource "azurerm_function_app" "order_function_consumer" {
 
     site_config {
       use_32_bit_worker_process = true
+      linux_fx_version = "JAVA|11"
     }
     identity {
         type = "SystemAssigned"
