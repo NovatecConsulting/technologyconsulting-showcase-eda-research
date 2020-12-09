@@ -29,6 +29,8 @@ resource "azurerm_function_app" "order_function_producer" {
     }
     site_config {
       java_version = "11"
+      java_container = "JAVA"
+      java_container_version = "11"
     }
 }
 
