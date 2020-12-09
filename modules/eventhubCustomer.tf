@@ -1,5 +1,5 @@
-resource "azurerm_eventhub_namespace" "customer_eventhub_namespace" {
-    name = "tc-eda-iac-${var.environment}-customer-eventhub"
+resource "azurerm_eventhub_namespace" "eventhub_namespace" {
+    name = "tc-eda-iac-${var.environment}-eventhub"
     location = azurerm_resource_group.resourceGroup.location
     resource_group_name = azurerm_resource_group.resourceGroup.name
     sku = "Standard"
@@ -8,7 +8,7 @@ resource "azurerm_eventhub_namespace" "customer_eventhub_namespace" {
 
 resource "azurerm_eventhub" "eventhub_customer_changed" {
     name = "customerchanged"
-    namespace_name = azurerm_eventhub_namespace.customer_eventhub_namespace.name
+    namespace_name = azurerm_eventhub_namespace.eventhub_namespace.name
     resource_group_name = azurerm_resource_group.resourceGroup.name
     partition_count = 2
     message_retention = 1
@@ -28,7 +28,7 @@ resource "azurerm_eventhub" "eventhub_customer_changed" {
 
 resource "azurerm_eventhub_authorization_rule" "eventhub_customer_changed_shared_access_policy" {
     name = "pubsub"
-    namespace_name = azurerm_eventhub_namespace.customer_eventhub_namespace.name
+    namespace_name = azurerm_eventhub_namespace.eventhub_namespace.name
     eventhub_name = azurerm_eventhub.eventhub_customer_changed.name
     resource_group_name = azurerm_resource_group.resourceGroup.name
     listen = true
@@ -44,7 +44,7 @@ resource "azurerm_key_vault_secret" "eventhub_customer_changed_sas_connectionstr
 
 resource "azurerm_eventhub_consumer_group" "tc_eda_iac_event_sourcing_consumer" {
   name                = "tc-eda-iac-event-sourcing-consumer"
-  namespace_name      = azurerm_eventhub_namespace.customer_eventhub_namespace.name
+  namespace_name      = azurerm_eventhub_namespace.eventhub_namespace.name
   eventhub_name       = azurerm_eventhub.eventhub_customer_changed.name
   resource_group_name = azurerm_resource_group.resourceGroup.name
 }
