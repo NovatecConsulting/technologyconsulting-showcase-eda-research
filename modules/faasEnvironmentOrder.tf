@@ -3,6 +3,7 @@ resource "azurerm_app_service_plan" "function_app_service_plan_linux" {
    location = azurerm_resource_group.resourceGroup.location
    resource_group_name = azurerm_resource_group.resourceGroup.name
    kind = "Linux"
+   reserved = true
 
    sku {
        tier = "Free"
