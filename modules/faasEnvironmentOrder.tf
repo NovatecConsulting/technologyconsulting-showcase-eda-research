@@ -23,9 +23,14 @@ resource "azurerm_function_app" "order_function_producer" {
         type = "SystemAssigned"
     }
 
+    site_config {
+      linux_fx_version = "JAVA|11"
+    }
+
     app_settings = {
         EVENT_HUB_NAME = azurerm_eventhub.eventhub_order_placed.name
         CONNECTION_STRING = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.eventhub_order_placed_sas_connectionstring.id})"
+        FUNCTIONS_WORKER_RUNTIME = "java"
     }
 }
 
@@ -42,8 +47,13 @@ resource "azurerm_function_app" "order_function_consumer" {
         type = "SystemAssigned"
     }
 
-        app_settings = {
+    site_config {
+      linux_fx_version = "JAVA|11"
+    }
+
+    app_settings = {
         EVENT_HUB_NAME = azurerm_eventhub.eventhub_order_placed.name
         CONNECTION_STRING = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.eventhub_order_placed_sas_connectionstring.id})"
+        FUNCTIONS_WORKER_RUNTIME = "java"
     }
 }
