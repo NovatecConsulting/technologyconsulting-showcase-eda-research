@@ -1,4 +1,4 @@
-name: Deploy order placed producer function
+name: Deploy order placed consumer function
 
 on:
   workflow_dispatch:
@@ -15,9 +15,9 @@ on:
 #
 # 2. Change these variables for your configuration:
 env:
-  AZURE_FUNCTIONAPP_NAME: tc-eda-iac-${{ github.event.inputs.environmentName }}-function-order-producer  # set this to your application's name
-  POM_FUNCTIONAPP_NAME: OrderPlacedProducer        # set this to the function app name in your local development environment
-  POM_XML_DIRECTORY: 'functions/OrderPlacedProducer'                     # set this to the directory which contains pom.xml file
+  AZURE_FUNCTIONAPP_NAME: tc-eda-iac-${{ github.event.inputs.environmentName }}-function-order-consumer  # set this to your application's name
+  POM_FUNCTIONAPP_NAME: OrderPlacedConsumer        # set this to the function app name in your local development environment
+  POM_XML_DIRECTORY: 'functions/OrderPlacedConsumer'                     # set this to the directory which contains pom.xml file
   JAVA_VERSION: '11.0.9'                      # set this to the java version to use
 
 jobs:
