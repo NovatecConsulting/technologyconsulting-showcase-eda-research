@@ -1,31 +1,28 @@
 name: Deploy order placed producer function
 
+
 on:
   workflow_dispatch:
+  #Can be accessed via ${{ github.event.inputs.variable_name }}. Will be requested before a pipeline gets started.
     inputs:
-      environmentName: 
+      #[insert_name_here]: 
         description: Desired name of your environment
         required: true
 
-# CONFIGURATION
-# For help, go to https://github.com/Azure/Actions
-#
-# 1. Set up the following secrets in your repository:
-#   AZURE_FUNCTIONAPP_PUBLISH_PROFILE
-#
-# 2. Change these variables for your configuration:
+#Environment Variables 
 env:
-  AZURE_FUNCTIONAPP_NAME: tc-eda-iac-${{ github.event.inputs.environmentName }}-function-order-producer  # set this to your application's name
-  POM_FUNCTIONAPP_NAME: OrderPlacedProducer        # set this to the function app name in your local development environment
-  POM_XML_DIRECTORY: 'functions/OrderPlacedProducer'                     # set this to the directory which contains pom.xml file
-  JAVA_VERSION: '11.0.9'                      # set this to the java version to use
+  AZURE_FUNCTIONAPP_NAME: ######################################  # set this to your application's environments name
+  POM_FUNCTIONAPP_NAME: 'OrderPlacedProducer'                       # set this to the function app name in your local development environment
+  POM_XML_DIRECTORY: ########################                     # set this to the directory which contains pom.xml file
+  JAVA_VERSION: '11.0.9'                                                 # set this to the java version to use
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: 'Checkout GitHub Action'
-      uses: actions/checkout@master
+    #Step 1: Get code
+    - name: ###############
+      uses: ###############
 
     - name: Setup Java ${{ env.JAVA_VERSION }} Environment
       uses: actions/setup-java@v1
@@ -59,6 +56,7 @@ jobs:
       uses: Azure/functions-action@v1
       id: fa
       with:
-        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        ### Azure function name
+        app-name: #################
         package: './${{ env.POM_XML_DIRECTORY }}/target/azure-functions/${{ env.POM_FUNCTIONAPP_NAME }}'
 
