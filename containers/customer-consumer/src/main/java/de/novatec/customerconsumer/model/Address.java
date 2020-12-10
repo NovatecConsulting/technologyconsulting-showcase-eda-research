@@ -4,6 +4,7 @@ public class Address {
   private String zip;
   private String street;
   private String city;
+  private String country;
 
   public String getZip() {
     return zip;
@@ -27,5 +28,13 @@ public class Address {
 
   public void setCity(String city) {
     this.city = city;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
+  public String getCountry() {
+    return country;
   }
 }
