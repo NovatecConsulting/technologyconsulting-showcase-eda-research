@@ -1,9 +1,11 @@
+#The function app service plan has already been created and will be reused.
+#But as you need the terraform resource identifier, we'll show the creation here again: 
+
 # resource "azurerm_app_service_plan" "function_app_service_plan" {
 #     name = "tc-eda-iac-${var.environment}-function-app-service-plan"
 #     location = azurerm_resource_group.resourceGroup.location
 #     resource_group_name = azurerm_resource_group.resourceGroup.name
-#     kind = "linux"
-#     reserved = true
+#     kind = "Windows"
 
 #     sku {
 #         tier = "Free"
@@ -11,41 +13,39 @@
 #     }
 # }
 
-resource "azurerm_function_app" "order_function_producer" {
-    name = "tc-eda-iac-${var.environment}-function-order-producer"
+
+# Function Environment for function order producer
+
+resource "azurerm_function_app" /*###########*/ {
+    name = /*###########*/
     location = azurerm_resource_group.resourceGroup.location
     resource_group_name = azurerm_resource_group.resourceGroup.name
-    app_service_plan_id = azurerm_app_service_plan.function_app_service_plan.id
-    storage_account_name = azurerm_storage_account.storage_account.name
-    storage_account_access_key = azurerm_storage_account.storage_account.primary_access_key
+    app_service_plan_id = /*###########*/
+    storage_account_name = /*###########*/
+    storage_account_access_key = /*###########*/
     version = "~3"
 
+    # A function needs an identity to allow access to Key Vault
     identity {
         type = "SystemAssigned"
     }
+
+    # App Settings represents both settings of the function environment (like function runtime java)
+    # but also sets ENVIRONMENT VARIABLES for the function to use
     app_settings = {
-        EVENT_HUB_NAME = azurerm_eventhub.eventhub_order_placed.name
-        CONNECTION_STRING = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.eventhub_order_placed_sas_connectionstring.id})"
+        /*###########*/
+        /*###########*/
         FUNCTIONS_WORKER_RUNTIME = "java"
     }
 }
 
-resource "azurerm_function_app" "order_function_consumer" {
-    name = "tc-eda-iac-${var.environment}-function-order-consumer"
-    location = azurerm_resource_group.resourceGroup.location
-    resource_group_name = azurerm_resource_group.resourceGroup.name
-    app_service_plan_id = azurerm_app_service_plan.function_app_service_plan.id
-    storage_account_name = azurerm_storage_account.storage_account.name
-    storage_account_access_key = azurerm_storage_account.storage_account.primary_access_key
-    version = "~3"
+# Function Environment for function order consumer
 
-    identity {
-        type = "SystemAssigned"
-    }
-    app_settings = {
-        EVENT_HUB_NAME = azurerm_eventhub.eventhub_order_placed.name
-        CONNECTION_STRING = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.eventhub_order_placed_sas_connectionstring.id})"
-        FUNCTIONS_WORKER_RUNTIME = "java"
-        ENVIRONMENT_NAME = "${var.environment}"
-    }
-}
+/*###########*/
+/*###########*/
+/*###########*/
+/*###########*/
+/*###########*/
+/*###########*/
+/*###########*/
+/*###########*/

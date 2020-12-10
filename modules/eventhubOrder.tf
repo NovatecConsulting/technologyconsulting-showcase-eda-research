@@ -1,3 +1,6 @@
+#The event hub namespace has already been created and will be reused.
+#But as you need the terraform resource identifier, we'll show the creation here again: 
+
 #resource "azurerm_eventhub_namespace" "eventhub_namespace" {
 #    name = "tc-eda-iac-${var.environment}-eventhub"
 #    location = azurerm_resource_group.resourceGroup.location
@@ -6,12 +9,12 @@
 #    capacity = 1
 #}
 
-resource "azurerm_eventhub" "eventhub_order_placed" {
-    name = "orderplaced"
-    namespace_name = azurerm_eventhub_namespace.eventhub_namespace.name
+resource "azurerm_eventhub" /*###########*/ {
+    name = /*###########*/
+    namespace_name = /*###########*/
     resource_group_name = azurerm_resource_group.resourceGroup.name
-    partition_count = 2
-    message_retention = 1
+    partition_count = /*###########*/
+    message_retention = /*###########*/
 
     capture_description {
       enabled = true
@@ -26,18 +29,19 @@ resource "azurerm_eventhub" "eventhub_order_placed" {
     }
 }
 
-resource "azurerm_eventhub_authorization_rule" "eventhub_order_placed_shared_access_policy" {
-    name = "pubsub"
-    namespace_name = azurerm_eventhub_namespace.eventhub_namespace.name
-    eventhub_name = azurerm_eventhub.eventhub_order_placed.name
+resource "azurerm_eventhub_authorization_rule" /*###########*/ {
+    name = /*###########*/
+    namespace_name = /*###########*/
+    eventhub_name = /*###########*/
     resource_group_name = azurerm_resource_group.resourceGroup.name
-    listen = true
-    send = true 
-    manage = false
+    listen = /*###########*/
+    send = /*###########*/ 
+    manage = /*###########*/
 }
 
-resource "azurerm_key_vault_secret" "eventhub_order_placed_sas_connectionstring" {
-    name = "EVENTHUBORDERPLACEDSASCONNECTIONSTRING"
-    value = azurerm_eventhub_authorization_rule.eventhub_order_placed_shared_access_policy.primary_connection_string
+resource "azurerm_key_vault_secret" /*###########*/ {
+    name = /*###########*/
+    #We want to save the "primary connection string" in the key vault here
+    value = /*###########*/
     key_vault_id = azurerm_key_vault.key_vault.id
 }
