@@ -1,15 +1,15 @@
-resource "azurerm_app_service_plan" "function_app_service_plan" {
-    name = "tc-eda-iac-${var.environment}-function-app-service-plan"
-    location = azurerm_resource_group.resourceGroup.location
-    resource_group_name = azurerm_resource_group.resourceGroup.name
-    kind = "linux"
-    reserved = true
+# resource "azurerm_app_service_plan" "function_app_service_plan" {
+#     name = "tc-eda-iac-${var.environment}-function-app-service-plan"
+#     location = azurerm_resource_group.resourceGroup.location
+#     resource_group_name = azurerm_resource_group.resourceGroup.name
+#     kind = "linux"
+#     reserved = true
 
-    sku {
-        tier = "Free"
-        size = "F1"
-    }
-}
+#     sku {
+#         tier = "Free"
+#         size = "F1"
+#     }
+# }
 
 resource "azurerm_function_app" "order_function_producer" {
     name = "tc-eda-iac-${var.environment}-function-order-producer"
@@ -20,10 +20,6 @@ resource "azurerm_function_app" "order_function_producer" {
     storage_account_access_key = azurerm_storage_account.storage_account.primary_access_key
     version = "~3"
 
-    site_config {
-      use_32_bit_worker_process = true
-      linux_fx_version = "JAVA|11"
-    }
     identity {
         type = "SystemAssigned"
     }
@@ -43,10 +39,6 @@ resource "azurerm_function_app" "order_function_consumer" {
     storage_account_access_key = azurerm_storage_account.storage_account.primary_access_key
     version = "~3"
 
-    site_config {
-      use_32_bit_worker_process = true
-      linux_fx_version = "JAVA|11"
-    }
     identity {
         type = "SystemAssigned"
     }
