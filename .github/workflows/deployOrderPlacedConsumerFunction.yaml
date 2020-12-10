@@ -1,0 +1,15 @@
+name: Deploy order placed consumer function
+
+on:
+  workflow_dispatch:
+    inputs:
+      environmentName: 
+        description: Desired name of your environment
+        required: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@master
