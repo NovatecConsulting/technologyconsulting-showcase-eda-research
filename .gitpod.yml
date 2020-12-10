@@ -1,0 +1,9 @@
+image: gitpod/workspace-full
+
+tasks:
+  - init: npm i -g azure-functions-core-tools@3 --unsafe-perm true
+
+vscode:
+  extensions:
+    - hashicorp.terraform@2.3.0:KgEabs4baG2MuLl5VL6Iyg==
+    - vscjava.vscode-maven@0.21.2:tFEkt2FqLujaNTLU5AmRiQ==
