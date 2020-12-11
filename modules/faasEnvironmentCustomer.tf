@@ -5,8 +5,8 @@ resource "azurerm_app_service_plan" "function_app_service_plan" {
     kind = "Windows"
 
     sku {
-        tier = "Free"
-        size = "F1"
+        tier = "Shared"
+        size = "D1"
     }
 }
 
