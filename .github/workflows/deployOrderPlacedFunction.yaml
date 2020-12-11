@@ -1,11 +1,9 @@
 name: Deploy order placed producer function
 
-
 on:
   workflow_dispatch:
-  #Can be accessed via ${{ github.event.inputs.variable_name }}. Will be requested before a pipeline gets started.
-    inputs:
-      #[insert_name_here]: 
+    inputs: # workflow_dispatch + input: Will be requested before a pipeline gets manually started.
+      variable_name: # Can be accessed via ${{ github.event.inputs.variable_name }}. 
         description: Desired name of your environment
         required: true
 
