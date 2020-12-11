@@ -36,18 +36,13 @@ public class Function {
         Order order = request.getBody();
         context.getLogger().info("OrderPlacedProducer received POST " + order.toString());
 
-        // Instantiate EventHubProducerClient with CONNECTION_STRING and EVENT_HUB_NAME
+        EventHubProducerClient eventHubProducerClient = new EventHubClientBuilder().connectionString(System.getenv("CONNECTION_STRING"),System.getenv("EVENT_HUB_NAME")).buildProducerClient();
 
+        EventDataBatch eventDataBatch = eventHubProducerClient.createBatch();
 
-
-        // Use EventHubProducerClient.createBatch() to prepare a batch of events
-        // Hint: Use ObjectMapper to turn the Order into a JSON String
-
-
-
-        // Gracefully shutdown the EventHubProducerClient by calling close()
-
-
+        eventDataBatch.tryAdd(new EventData(new ObjectMapper().writeValueAsString(order)));
+        eventHubProducerClient.send(eventDataBatch);
+        eventHubProducerClient.close();
 
         return request.createResponseBuilder(HttpStatus.OK).build();
     }
