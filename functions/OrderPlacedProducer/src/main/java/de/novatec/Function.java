@@ -20,9 +20,9 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
  */
 public class Function {
     /**
-     * This function listens at endpoint "/api/HttpExample". Two ways to invoke it
+     * This function listens at endpoint "/api/OrderPlacedProducer". Two ways to invoke it
      * using "curl" command in bash: 1. curl -d "HTTP Body" {your
-     * host}/api/HttpExample 2. curl "{your host}/api/HttpExample?name=HTTP%20Query"
+     * host}/api/OrderPlacedProducer 2. curl "{your host}/api/OrderPlacedProducer?name=HTTP%20Query"
      * 
      * @throws JsonProcessingException
      */
@@ -32,20 +32,22 @@ public class Function {
                     HttpMethod.POST }, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Order> request,
             final ExecutionContext context) throws JsonProcessingException {
 
-        context.getLogger().info("OrderPlacedProducer received POST " + request.getBody().toString());
-
-        EventHubProducerClient producer = new EventHubClientBuilder()
-                .connectionString(System.getenv("CONNECTION_STRING"), System.getenv("EVENT_HUB_NAME"))
-                .buildProducerClient();
-
+        // Retreive the order from the request body of the HttpTrigger
         Order order = request.getBody();
+        context.getLogger().info("OrderPlacedProducer received POST " + order.toString());
 
-        EventDataBatch batch = producer.createBatch();
-        ObjectMapper objectMapper = new ObjectMapper();
-        batch.tryAdd(new EventData(objectMapper.writeValueAsString(order)));
-        
-        producer.send(batch);
-        producer.close();
+        // Instantiate EventHubProducerClient with CONNECTION_STRING and EVENT_HUB_NAME
+
+
+
+        // Use EventHubProducerClient.createBatch() to prepare a batch of events
+        // Hint: Use ObjectMapper to turn the Order into a JSON String
+
+
+
+        // Gracefully shutdown the EventHubProducerClient by calling close()
+
+
 
         return request.createResponseBuilder(HttpStatus.OK).build();
     }
