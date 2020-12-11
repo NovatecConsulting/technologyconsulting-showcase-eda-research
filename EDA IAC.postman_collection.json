@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "b3dc18a1-8519-48dc-872d-0ec57c74a8ea",
+		"name": "EDA IAC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer Producer Function",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 6,\r\n        \"name\": \"Mariano Parra\",\r\n        \"address\": {\r\n            \"zip\": \"67719\",\r\n            \"street\": \"Avenida del Planetario 4546\",\r\n            \"city\": \"Santiago de Compostela\",\r\n            \"country\": \"Spain\"\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://tc-eda-iac-{{azure_env}}-function-customer-producer.azurewebsites.net/api/CustomerChangedProducer",
+					"protocol": "https",
+					"host": [
+						"tc-eda-iac-{{azure_env}}-function-customer-producer",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"CustomerChangedProducer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Customers (Container)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://tc-eda-iac-{{azure_env}}-customer-consumer-container.westeurope.azurecontainer.io/customers",
+					"protocol": "http",
+					"host": [
+						"tc-eda-iac-{{azure_env}}-customer-consumer-container",
+						"westeurope",
+						"azurecontainer",
+						"io"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order Producer Function",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orderId\": 1,\r\n    \"customerId\": 5,\r\n    \"product\": \"Pizza Hawaii\", \r\n    \"amount\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://tc-eda-iac-{{azure_env}}-function-order-producer.azurewebsites.net/api/OrderPlacedProducer",
+					"protocol": "https",
+					"host": [
+						"tc-eda-iac-{{azure_env}}-function-order-producer",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"OrderPlacedProducer"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
