@@ -7,6 +7,9 @@ import com.microsoft.azure.functions.annotation.Cardinality;
 import com.microsoft.azure.functions.annotation.EventHubTrigger;
 import com.microsoft.azure.functions.annotation.FunctionName;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
 public class Function {
     @FunctionName("OrderPlacedConsumer")
     public void run(
@@ -14,17 +17,20 @@ public class Function {
                 name = "order",
                 consumerGroup = "$Default",
                 eventHubName = "",
-                connection = "",
+                connection = "CONNECTION_STRING",
                 cardinality = Cardinality.ONE) Order order,
             final ExecutionContext context) {
 
         Logger log = context.getLogger();
 
-        // Call CustomerContainer at 
-        // "http://tc-eda-iac-" + <insert_env_name_here> + "-customer-consumer-container.westeurope.azurecontainer.io/customers/{customerId}"
-        // ...
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Customer> customerResponse = restTemplate.getForEntity("http://tc-eda-iac-" + System.getenv("ENVIRONMENT_NAME") + "-customer-consumer-container.westeurope.azurecontainer.io/customers/" + order.getCustomerId(), Customer.class);
 
-
-        // Log customer + order with log.info()
+        if(customerResponse.getStatusCode() != HttpStatus.OK) {
+            log.warning("Couldn't fetch customer with id " + order.getCustomerId() + "; ErrorCode=" + customerResponse.getStatusCode().value());
+        } else {
+            Customer customer = customerResponse.getBody();
+            log.info("Customer " + customer.toString() + " ordered " + order.toString());
+        }
     }
 }
