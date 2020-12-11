@@ -9,12 +9,12 @@
 #    capacity = 1
 #}
 
-resource "azurerm_eventhub" /*###########*/ {
-    name = /*###########*/
-    namespace_name = /*###########*/
+resource "azurerm_eventhub" "eventhub_order_placed" {
+    name = "orderplaced"
+    namespace_name = azurerm_eventhub_namespace.eventhub_namespace.name
     resource_group_name = azurerm_resource_group.resourceGroup.name
-    partition_count = /*###########*/
-    message_retention = /*###########*/
+    partition_count = 2
+    message_retention = 1
 
     capture_description {
       enabled = true
@@ -29,19 +29,19 @@ resource "azurerm_eventhub" /*###########*/ {
     }
 }
 
-resource "azurerm_eventhub_authorization_rule" /*###########*/ {
-    name = /*###########*/
-    namespace_name = /*###########*/
-    eventhub_name = /*###########*/
+
+resource "azurerm_eventhub_authorization_rule" "eventhub_order_placed_shared_access_policy" {
+    name = "pubsub"
+    namespace_name = azurerm_eventhub_namespace.eventhub_namespace.name
+    eventhub_name = azurerm_eventhub.eventhub_order_placed.name
     resource_group_name = azurerm_resource_group.resourceGroup.name
-    listen = /*###########*/
-    send = /*###########*/ 
-    manage = /*###########*/
+    listen = true
+    send = true 
+    manage = false
 }
 
-resource "azurerm_key_vault_secret" /*###########*/ {
-    name = /*###########*/
-    #We want to save the "primary connection string" in the key vault here
-    value = /*###########*/
+resource "azurerm_key_vault_secret" "eventhub_order_placed_sas_connectionstring" {
+    name = "EVENTHUBORDERPLACEDSASCONNECTIONSTRING"
+    value = azurerm_eventhub_authorization_rule.eventhub_order_placed_shared_access_policy.primary_connection_string
     key_vault_id = azurerm_key_vault.key_vault.id
 }

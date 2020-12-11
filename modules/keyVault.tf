@@ -41,21 +41,21 @@ resource "azurerm_key_vault_access_policy" "key_vault_customer_consumer_function
   secret_permissions = ["delete", "get", "set", "list"]
 }
 
-# Order Producer FaaS 
 
-/*###########*/
-/*###########*/
-/*###########*/
-/*###########*/
-/*###########*/
-/*###########*/
+# Allow the Order Placed Producer FaaS to access the key vault
+resource "azurerm_key_vault_access_policy" "key_vault_order_placed_producer_function_access_policy" {
+  key_vault_id = azurerm_key_vault.key_vault.id
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id = azurerm_function_app.order_placed_producer.identity[0].principal_id
 
+  secret_permissions = ["delete", "get", "set", "list"]
+}
 
-# Order Consumer FaaS 
+# Customer Consumer FaaS 
+resource "azurerm_key_vault_access_policy" "key_vault_order_placed_consumer_function_access_policy" {
+  key_vault_id = azurerm_key_vault.key_vault.id
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id = azurerm_function_app.order_placed_consumer.identity[0].principal_id
 
-/*###########*/
-/*###########*/
-/*###########*/
-/*###########*/
-/*###########*/
-/*###########*/
+  secret_permissions = ["delete", "get", "set", "list"]
+}
